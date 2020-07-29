@@ -1,0 +1,245 @@
+%flex {
+  display: flex;
+  align-items: center;
+}
+
+@mixin border-radius($arc) {
+  -moz-border-radius: $arc;
+  -webkit-border-radius: $arc;
+  border-radius: $arc;  
+}
+
+$z-layers: (
+  default: 0,
+  underline: -1
+);
+
+@function z($key) {
+  @if map-has-key($z-layers, $key) {
+    @return map-get($z-layers, $key);
+  }
+ 
+  @warn "Unknown `#{$key}` in $z-layers.";
+  @return null;
+}
+
+body {
+  margin: 0;
+  min-width: 1920px;
+  font-family: $font-family;
+  background-color: $color-background-body;
+}
+
+button {
+  @include border-radius(5px); 
+  background-color: $color-background-button;
+  height: 60px;
+  padding: 0 55px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  font-family: 'Source Sans Pro', sans-serif;
+  border: none;
+
+  &:hover {
+    background-color: lighten( $color-background-button, 10% );
+    color: darken( #fff, 10% );
+  }
+}
+
+.header {
+  padding: 26px 192px 220px;
+  background: url($image-header) no-repeat center/100% auto;
+  border-radius: 700px/400px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.landing-logo {
+  display: flex;
+  align-items: center;
+  color: $color-text-header;
+  
+  p {
+    @extend %flex;
+    flex-direction: column;
+    margin: 0;
+    padding-left: 15px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 28px;
+    
+    span {
+      font-size: 10px;
+      line-height: 10px;
+    }
+  }
+}
+
+.header_heading {
+  position: relative;
+  max-width: 610px;
+  margin: 80px 0 50px;
+  z-index: z(default);
+  color: $color-text-header;
+  font: 700 90px 'Source Sans Pro', sans-serif;
+  line-height: 96px;  
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: z(underline);
+    height: 25px;
+    width: 380px;
+    background-color: $color-text-underline;
+  }
+}
+
+.header_text {
+  margin: 0 0 80px;
+  white-space: pre-line;
+  color: $color-text-header;
+  line-height: 24px;
+}
+
+.section {
+  padding: 0 192px;
+  text-align: center;
+}
+
+.section_text {
+  position: relative;
+  display: inline-block;
+  z-index: z(default);
+  text-align: center;
+  color: $color-text-header;
+  font: 600 42px 'Source Sans Pro', sans-serif;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    right: 12px;
+    bottom: 6px;
+    z-index: z(underline);
+    height: 12px;
+    width: 190px;
+    background-color: $color-text-underline;    
+  }
+}
+
+.section_card_wrap {
+  display: flex;
+  margin: 0 -12px 174px;
+}
+
+.section_card {
+  @include border-radius(5px); 
+  flex: 1 1 0;
+  margin: 0 12px;
+  padding: 24px;
+  text-align: center;
+  background-color: $color-background-card-footer;
+  
+  &_img {
+    @include border-radius(5px); 
+    width: 100%;
+  }
+
+  &_heading {
+    position: relative;
+    display: inline-block;
+    margin: 10px 0 0;
+    z-index: z(default);
+    color: #fff;
+    font-size: 26px;
+    font-weight: 600;
+    font-family: 'Source Sans Pro', sans-serif;
+
+    .section_card_underline {
+      position: absolute;
+      display: inline-block;
+      left: 0;
+      top: 20px;
+      z-index: z(underline);
+      height: 12px;
+      width: 100%;
+      background-color: $color-text-underline;
+    }
+  }
+
+  &_text {
+    margin-bottom: 0;
+    color: $color-text;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.section_banner {
+  @include border-radius(5px);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 0 170px -80px;
+  padding: 30px 126px 46px;
+  background: $background-banner;
+
+  &_text_wrap {
+    text-align: left;
+  }
+
+  &_heading {
+    position: relative;
+    display: inline-block;
+    margin: 0 0 5px;
+    z-index: z(default);
+    color: $color-text-header;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: 'Source Sans Pro', sans-serif;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 120px;
+      bottom: 3px;
+      z-index: z(underline);
+      height: 12px;
+      width: 65px;
+      background-color: $color-text-underline;
+    }
+  }
+
+  &_text {
+    margin-bottom: 0;
+    font-size: 16px;
+    color: $color-text;
+  }
+}
+
+.footer {
+  padding: 164px 192px 70px;
+  color: $color-text;
+  background-color: $color-background-card-footer;
+
+  .footer-wrap {
+    @extend %flex;
+    justify-content: space-between;
+  }
+
+  .landing-logo {
+    @extend .landing-logo;
+    color: #c0c3ce;
+  }
+
+  .footer_text {
+    max-width: 310px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
